@@ -1,0 +1,40 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'web-backend/**'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'web-backend/**'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        cd web-backend
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    # Exemplo de build docker (push comentado para ambiente de testes)
+    - name: Build Docker image
+      run: |
+        cd web-backend
+        docker build -t meu-registry.azurecr.io/web-backend:${{ github.sha }} .
+        # docker push meu-registry.azurecr.io/web-backend:${{ github.sha }}
+        
+    # Exemplo de atualização do repositório GitOps
+    - name: Update GitOps Repo
+      run: |
+        echo "Aqui ocorreria a atualização do manifest do ArgoCD com a nova tag da imagem."

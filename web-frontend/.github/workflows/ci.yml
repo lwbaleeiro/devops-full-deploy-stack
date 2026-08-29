@@ -1,0 +1,28 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'web-frontend/**'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'web-frontend/**'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    # Exemplo de build docker
+    - name: Build Docker image
+      run: |
+        cd web-frontend
+        docker build -t meu-registry.azurecr.io/web-frontend:${{ github.sha }} .
+        # docker push meu-registry.azurecr.io/web-frontend:${{ github.sha }}
+        
+    - name: Update GitOps Repo
+      run: |
+        echo "Aqui ocorreria o commit automático no repositório gitops-argocd com a nova versão da tag web-frontend."

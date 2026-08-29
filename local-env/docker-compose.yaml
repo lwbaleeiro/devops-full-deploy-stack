@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  floci-az:
+    image: floci/floci-az:latest
+    container_name: floci-az-emulator
+    ports:
+      - "4577:4577"
+    environment:
+      - DEFAULT_REGION=eastus
+      - AZURE_CLIENT_ID=00000000-0000-0000-0000-000000000000
+      - AZURE_CLIENT_SECRET=dummy-secret
+      - AZURE_TENANT_ID=00000000-0000-0000-0000-000000000000
+      - AZURE_SUBSCRIPTION_ID=00000000-0000-0000-0000-000000000000
+      - FLOCI_AZ_TLS_ENABLED=true
+      - FLOCI_AZ_HOSTNAME=localhost
+    volumes:
+      - floci-data:/var/lib/floci/data
+
+  # Interface Web do Floci
+  floci-ui:
+    image: floci/floci-ui:latest
+    container_name: floci-ui
+    ports:
+      - "4500:4500"
+    environment:
+      - FLOCI_AZ_ENDPOINT=http://floci-az:4577
+    depends_on:
+      - floci-az
+
+volumes:
+  floci-data:

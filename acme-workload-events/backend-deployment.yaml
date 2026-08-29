@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-backend
+  namespace: events-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-backend
+  template:
+    metadata:
+      labels:
+        app: web-backend
+    spec:
+      containers:
+        - name: web-backend
+          image: meu-registry.azurecr.io/web-backend:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: events-api-secrets-k8s
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-backend-svc
+  namespace: events-app
+spec:
+  selector:
+    app: web-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
