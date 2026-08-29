@@ -7,7 +7,7 @@ Este projeto simula uma arquitetura de nuvem corporativa com separação de resp
 O fluxo principal do provisionamento de recursos e gerenciamento de segredos funciona da seguinte forma:
 
 1. **IaC Platform**: Provisiona recursos Azure (bancos, cache, etc.) e salva as credenciais no Key Vault do ambiente.
-2. **GitOps Extensions**: Hospeda templates de `ExternalSecret`. O ArgoCD sincroniza esses templates no cluster K8s.
+2. **acme-external-secrets**: Hospeda templates de `ExternalSecret`. O ArgoCD sincroniza esses templates no cluster K8s.
 3. **ESO (External Secrets Operator)**: Lê o Key Vault usando as instruções do `ExternalSecret` e gera um Secret nativo no cluster.
 4. **Workload (Aplicação)**: A aplicação é implantada pelo ArgoCD e simplesmente consome o Secret nativo injetado como variáveis de ambiente.
 

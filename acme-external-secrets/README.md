@@ -1,4 +1,4 @@
-# GitOps Extensions
+# acme-external-secrets
 
 Este repositório contém templates GitOps (ExternalSecrets) gerenciados por Operações/SRE.
 
