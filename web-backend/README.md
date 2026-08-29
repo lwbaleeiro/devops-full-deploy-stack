@@ -1,16 +1,16 @@
 # Web Backend API
 
-Esta é uma API FastAPI para gerenciar eventos. Ela serve como backend para a aplicação frontend e se conecta aos recursos de infraestrutura provisionados via Terraform.
+This is a FastAPI API for managing events. It serves as a backend for the frontend application and connects to the infrastructure resources provisioned via Terraform.
 
-## Dependências Simuladas
-- **CosmosDB**: Armazenamento de dados principal.
-- **Redis**: Cache para leitura rápida.
-- **RabbitMQ / EventHub**: Mensageria assíncrona para publicação de eventos.
-- **Blob Storage**: Armazenamento de anexos.
+## Simulated Dependencies
+- **CosmosDB**: Main data storage.
+- **Redis**: Cache for fast reads.
+- **RabbitMQ / EventHub**: Asynchronous messaging for event publishing.
+- **Blob Storage**: Attachment storage.
 
-As conexões são feitas de forma segura usando variáveis de ambiente que, em um ambiente real, seriam injetadas como Secrets a partir do Azure Key Vault via ArgoCD/Kubernetes.
+Connections are made securely using environment variables which, in a real environment, would be injected as Secrets from Azure Key Vault via ArgoCD/Kubernetes.
 
-## Rodando Localmente (Requer Python)
+## Running Locally (Requires Python)
 ```bash
 pip install -r requirements.txt
 uvicorn app.main:app --reload

@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Eventos</title>
+    <title>Event Manager</title>
     <link rel="stylesheet" href="src/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Gerenciador de Eventos</h1>
-            <p>Prática de DevOps Completa</p>
+            <h1>Event Manager</h1>
+            <p>Full DevOps Practice</p>
         </header>
         
         <main>
             <section class="add-event">
-                <h2>Novo Evento</h2>
+                <h2>New Event</h2>
                 <form id="event-form">
-                    <input type="text" id="title" placeholder="Título do Evento" required>
+                    <input type="text" id="title" placeholder="Event Title" required>
                     <input type="date" id="date" required>
-                    <input type="text" id="location" placeholder="Local" required>
-                    <textarea id="description" placeholder="Descrição" required></textarea>
-                    <button type="submit">Cadastrar Evento</button>
+                    <input type="text" id="location" placeholder="Location" required>
+                    <textarea id="description" placeholder="Description" required></textarea>
+                    <button type="submit">Register Event</button>
                 </form>
             </section>
 
             <section class="list-events">
                 <div class="list-header">
-                    <h2>Meus Eventos</h2>
-                    <input type="text" id="search" placeholder="Buscar eventos...">
+                    <h2>My Events</h2>
+                    <input type="text" id="search" placeholder="Search events...">
                 </div>
                 <div id="events-container" class="events-grid">
-                    <!-- Eventos serão carregados via JS -->
+                    <!-- Events will be loaded via JS -->
                 </div>
             </section>
         </main>

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventsContainer = document.getElementById('events-container');
     const searchInput = document.getElementById('search');
 
-    // Carregar eventos iniciais
+    // Load initial events
     fetchEvents();
 
     eventForm.addEventListener('submit', async (e) => {
@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 fetchEvents();
             }
         } catch (error) {
-            console.error('Erro ao criar evento:', error);
-            // Fallback para desenvolvimento local sem backend
+            console.error('Error creating event:', error);
+            // Fallback for local development without backend
             renderEvent({...newEvent, id: Date.now().toString()});
         }
     });
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             eventsContainer.innerHTML = '';
             events.forEach(renderEvent);
         } catch (error) {
-            console.error('Erro ao buscar eventos:', error);
+            console.error('Error fetching events:', error);
         }
     }
 
@@ -58,20 +58,20 @@ document.addEventListener('DOMContentLoaded', () => {
             <p class="date">📅 ${new Date(event.date).toLocaleDateString()}</p>
             <p class="location">📍 ${event.location}</p>
             <p class="description">${event.description}</p>
-            <button class="delete-btn" onclick="deleteEvent('${event.id}')">Excluir</button>
+            <button class="delete-btn" onclick="deleteEvent('${event.id}')">Delete</button>
         `;
         eventsContainer.appendChild(div);
     }
 });
 
 async function deleteEvent(id) {
-    if(confirm('Deseja realmente excluir este evento?')) {
+    if(confirm('Are you sure you want to delete this event?')) {
         try {
             await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-            // Recarregar a página ou re-chamar fetchEvents (simplificado aqui)
+            // Reload the page or re-call fetchEvents (simplified here)
             document.location.reload();
         } catch (error) {
-            console.error('Erro ao excluir:', error);
+            console.error('Error deleting:', error);
         }
     }
 }

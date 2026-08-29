@@ -1,35 +1,35 @@
-# Projeto DevOps Full Deploy Stack
+# DevOps Full Deploy Stack Project
 
-Este projeto simula uma arquitetura de nuvem corporativa com separação de responsabilidades entre times de Plataforma, Operações/GitOps e Produto.
+This project simulates an enterprise cloud architecture with separation of duties between Platform, Operations/GitOps, and Product teams.
 
-## Diagrama da Arquitetura
+## Architecture Diagram
 
-O fluxo principal do provisionamento de recursos e gerenciamento de segredos funciona da seguinte forma:
+The main workflow for resource provisioning and secret management works as follows:
 
-1. **IaC Platform**: Provisiona recursos Azure (bancos, cache, etc.) e salva as credenciais no Key Vault do ambiente.
-2. **acme-external-secrets**: Hospeda templates de `ExternalSecret`. O ArgoCD sincroniza esses templates no cluster K8s.
-3. **ESO (External Secrets Operator)**: Lê o Key Vault usando as instruções do `ExternalSecret` e gera um Secret nativo no cluster.
-4. **Workload (Aplicação)**: A aplicação é implantada pelo ArgoCD e simplesmente consome o Secret nativo injetado como variáveis de ambiente.
+1. **IaC Platform**: Provisions Azure resources (databases, cache, etc.) and saves credentials in the environment's Key Vault.
+2. **acme-external-secrets**: Hosts `ExternalSecret` templates. ArgoCD synchronizes these templates in the K8s cluster.
+3. **ESO (External Secrets Operator)**: Reads the Key Vault using the instructions from the `ExternalSecret` and generates a native Secret in the cluster.
+4. **Workload (Application)**: The application is deployed by ArgoCD and simply consumes the native Secret injected as environment variables.
 
-## Repositórios (Pastas) Principais
+## Main Repositories (Folders)
 
-Para fins de estudo e organização, este mono-repositório simula os seguintes repositórios reais:
+For study and organization purposes, this mono-repo simulates the following real repositories:
 
-### 1. Camada de Produto e Workload
-- **`web-frontend/`**: Aplicação de código-fonte Frontend (Vanilla JS).
-- **`web-backend/`**: Aplicação de código-fonte Backend (FastAPI).
-- **`acme-workload-events/`**: Repositório GitOps do time de produto. Contém os manifestos Kubernetes (Deployment, HPA) da aplicação. O ArgoCD monitora esta pasta.
+### 1. Product and Workload Layer
+- **`web-frontend/`**: Frontend source code application (Vanilla JS).
+- **`web-backend/`**: Backend source code application (FastAPI).
+- **`acme-workload-events/`**: GitOps repository of the product team. Contains Kubernetes manifests (Deployment, HPA) for the application. ArgoCD monitors this folder.
 
-### 2. Camada de Infraestrutura e Plataforma
-- **`acme-iac-platform/`**: Repositório Terraform. Provisiona todos os serviços em nuvem (CosmosDB, Redis, RabbitMQ, Storage e Key Vault). Onde rodam as pipelines de `plan` e `apply`.
-- **`acme-external-secrets/`**: Repositório de extensões do ArgoCD gerenciado por SRE. Contém os templates `ExternalSecret` separados por ambiente/região (ex: `envs/uat/us/templates/`).
+### 2. Infrastructure and Platform Layer
+- **`acme-iac-platform/`**: Terraform repository. Provisions all cloud services (CosmosDB, Redis, RabbitMQ, Storage, and Key Vault). This is where the `plan` and `apply` pipelines run.
+- **`acme-external-secrets/`**: ArgoCD extensions repository managed by SRE. Contains `ExternalSecret` templates separated by environment/region (e.g.: `envs/uat/us/templates/`).
 
-### 3. Observabilidade
-- **`observability/new-relic/`**: Monitoramento da aplicação (APM, logs da app).
-- **`observability/azure-monitor/`**: Monitoramento da infraestrutura Cloud e dados.
+### 3. Observability
+- **`observability/new-relic/`**: Application monitoring (APM, app logs).
+- **`observability/azure-monitor/`**: Cloud infrastructure and data monitoring.
 
-### 4. Simulação Local
-- **`local-env/`**: Contém o `docker-compose.yaml` com o emulador **floci-az**, permitindo que você rode e teste toda essa arquitetura (Terraform, Key Vault, Cosmos DB, etc.) na sua máquina **sem custo algum**. Leia o README dessa pasta para saber como conectá-lo.
+### 4. Local Simulation
+- **`local-env/`**: Contains the `docker-compose.yaml` with the **floci-az** emulator, allowing you to run and test this entire architecture (Terraform, Key Vault, Cosmos DB, etc.) on your machine **at no cost**. Read the README in this folder to learn how to connect to it.
 
 ---
-**Dica Prática:** Explore as pastas `acme-workload-events/` e `acme-external-secrets/` para ver exemplos práticos de como o fluxo do External Secrets Operator (ESO) e do Deployment estão conectados!
+**Practical Tip:** Explore the `acme-workload-events/` and `acme-external-secrets/` folders to see practical examples of how the External Secrets Operator (ESO) workflow and Deployment are connected!

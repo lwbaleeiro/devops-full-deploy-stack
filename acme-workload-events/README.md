@@ -1,8 +1,8 @@
 # Workload: Events App
 
-Este repositório é gerenciado por equipes de produto e contém os manifestos Kubernetes para o frontend e backend de eventos.
+This repository is managed by product teams and contains the Kubernetes manifests for the events frontend and backend.
 
-## Estrutura
+## Structure
 
 ```
 .k8s/
@@ -17,7 +17,6 @@ Este repositório é gerenciado por equipes de produto e contém os manifestos K
 └── templates/
 ```
 
-## Uso
+## Usage
 
-Os manifestos são sincronizados automaticamente pelo ArgoCD nos respectivos ambientes e regiões.
-    
+The manifests are automatically synchronized by ArgoCD in the respective environments and regions.

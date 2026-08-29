@@ -16,13 +16,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    # Exemplo de build docker
+    # Docker build example
     - name: Build Docker image
       run: |
         cd web-frontend
-        docker build -t meu-registry.azurecr.io/web-frontend:${{ github.sha }} .
-        # docker push meu-registry.azurecr.io/web-frontend:${{ github.sha }}
+        docker build -t my-registry.azurecr.io/web-frontend:${{ github.sha }} .
+        # docker push my-registry.azurecr.io/web-frontend:${{ github.sha }}
         
     - name: Update GitOps Repo
       run: |
-        echo "Aqui ocorreria o commit automático no repositório gitops-argocd com a nova versão da tag web-frontend."
+        echo "Here an automatic commit would occur in the gitops-argocd repo with the new web-frontend tag version."

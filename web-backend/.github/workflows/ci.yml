@@ -27,14 +27,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-    # Exemplo de build docker (push comentado para ambiente de testes)
+    # Docker build example (push commented out for testing environment)
     - name: Build Docker image
       run: |
         cd web-backend
-        docker build -t meu-registry.azurecr.io/web-backend:${{ github.sha }} .
-        # docker push meu-registry.azurecr.io/web-backend:${{ github.sha }}
+        docker build -t my-registry.azurecr.io/web-backend:${{ github.sha }} .
+        # docker push my-registry.azurecr.io/web-backend:${{ github.sha }}
         
-    # Exemplo de atualização do repositório GitOps
+    # GitOps repo update example
     - name: Update GitOps Repo
       run: |
-        echo "Aqui ocorreria a atualização do manifest do ArgoCD com a nova tag da imagem."
+        echo "Here the ArgoCD manifest would be updated with the new image tag."

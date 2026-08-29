@@ -1,39 +1,39 @@
-# Ambiente Local (Emulação Azure)
+# Local Environment (Azure Emulation)
 
-Este diretório contém os arquivos necessários para simular a nuvem Microsoft Azure localmente de forma 100% gratuita utilizando o **floci-az**.
+This directory contains the files needed to simulate the Microsoft Azure cloud locally, 100% free of charge, using **floci-az**.
 
-## O que é o floci-az?
+## What is floci-az?
 
-O [floci-az](https://floci.io/) é um emulador de código aberto super leve. Ele sobe um servidor local (geralmente na porta `4577`) que simula dezenas de APIs do Azure, como Cosmos DB, Blob Storage, Key Vault, Service Bus, entre outros.
+[floci-az](https://floci.io/) is an ultra-lightweight open-source emulator. It spins up a local server (usually on port `4577`) that simulates dozens of Azure APIs, such as Cosmos DB, Blob Storage, Key Vault, Service Bus, among others.
 
-Isso significa que você pode apontar o Terraform e o backend da aplicação para o `localhost:4577` e tudo funcionará como se você estivesse usando a nuvem real.
+This means you can point your Terraform and the application backend to `localhost:4577` and everything will work as if you were using the real cloud.
 
-A interface web do floci está disponível em `http://localhost:4500`
+The floci web interface is available at `http://localhost:4500`
 
-## Como usar
+## How to use
 
-Para facilitar a configuração do ambiente e a configuração dos certificados TLS (necessários pelo Terraform), criamos um script automatizado.
+To simplify the environment setup and the configuration of TLS certificates (required by Terraform), we created an automated script.
 
-Certifique-se de ter o Docker e o Docker Compose instalados na sua máquina, então execute:
+Ensure you have Docker and Docker Compose installed on your machine, then run:
 
 ```bash
 ./start.sh
 ```
 
-Este script irá:
-1. Subir os containers do docker-compose.
-2. Aguardar o floci-az inicializar.
-3. Extrair o certificado autoassinado (TLS) do emulador e salvar localmente como `floci-cert.pem`.
+This script will:
+1. Spin up the docker-compose containers.
+2. Wait for floci-az to initialize.
+3. Extract the self-signed certificate (TLS) from the emulator and save it locally as `floci-cert.pem`.
 
-No final da execução, ele indicará como exportar o certificado e as variáveis do `.env` na sua sessão para o uso do Terraform.
+At the end of the execution, it will show you how to export the certificate and the `.env` variables in your session for Terraform to use.
 
-### Configurando o Terraform (acme-iac-platform)
-No seu Terraform, você configura os endpoints customizados do AzureRM Provider para apontar para o `floci-az`:
+### Configuring Terraform (acme-iac-platform)
+In your Terraform configuration, you set up the custom endpoints for the AzureRM Provider to point to `floci-az`:
 
 ```hcl
 provider "azurerm" {
   features {}
-  # Aponta a API do Azure para o floci-az
+  # Points the Azure API to floci-az
   environment = "public"
   custom_provider_endpoints {
     resource_manager_endpoint = "http://localhost:4577"
@@ -42,5 +42,5 @@ provider "azurerm" {
 }
 ```
 
-### Configurando o Backend e o GitOps
-No seu cluster local (Minikube), as variáveis de ambiente e o External Secrets Operator também devem apontar para a URL do floci-az para resgatar os secrets simulados do Key Vault.
+### Configuring the Backend and GitOps
+In your local cluster (Minikube), environment variables and the External Secrets Operator must also point to the floci-az URL to fetch the simulated secrets from the Key Vault.

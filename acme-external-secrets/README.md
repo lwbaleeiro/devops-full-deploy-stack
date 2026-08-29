@@ -1,10 +1,10 @@
 # acme-external-secrets
 
-Este repositório contém templates GitOps (ExternalSecrets) gerenciados por Operações/SRE.
+This repository contains GitOps templates (ExternalSecrets) managed by Operations/SRE.
 
-## Estrutura de Pastas
+## Folder Structure
 
-Os arquivos estão organizados por ambiente (`envs`) e região (`us`/`br`):
+Files are organized by environment (`envs`) and region (`us`/`br`):
 
 ```
 envs/
@@ -16,10 +16,10 @@ envs/
     └── us/
 ```
 
-## Exemplo de Uso
+## Usage Example
 
-Para criar um ExternalSecret no ambiente `uat` na região `us`:
+To create an ExternalSecret in the `uat` environment in the `us` region:
 
-1. Crie uma pasta: `mkdir -p envs/uat/us`
-2. Adicione o arquivo YAML do ExternalSecret dentro da pasta.
-3. O ArgoCD sincronizará automaticamente.
+1. Create a folder: `mkdir -p envs/uat/us`
+2. Add the ExternalSecret YAML file inside the folder.
+3. ArgoCD will synchronize automatically.

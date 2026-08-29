@@ -1,22 +1,22 @@
-# Provisionamento (IaC) - Platform
+# Provisioning (IaC) - Platform
 
-Este repositório contém templates Terraform para provisionamento de recursos Azure (Bancos, Cache, Storage, RabbitMQ e Key Vault).
+This repository contains Terraform templates for provisioning Azure resources (Databases, Cache, Storage, RabbitMQ, and Key Vault).
 
-## Estrutura de Pastas
+## Folder Structure
 
 ```
 .tf/
-├── shared/                # Recursos compartilhados (ex: Resource Groups)
-├── uat/                   # Ambiente UAT
-│   ├── br/                # Região Brasil
-│   └── us/                # Região US
-├── prod/                  # Ambiente de Produção
-│   ├── br/                # Região Brasil
-│   └── us/                # Região US
-├── modules/               # Módulos Terraform reutilizáveis
-└── templates/             # Templates para geração de arquivos
+├── shared/                # Shared resources (e.g. Resource Groups)
+├── uat/                   # UAT Environment
+│   ├── br/                # Brazil Region
+│   └── us/                # US Region
+├── prod/                  # Production Environment
+│   ├── br/                # Brazil Region
+│   └── us/                # US Region
+├── modules/               # Reusable Terraform modules
+└── templates/             # Templates for file generation
 ```
 
-## Uso
+## Usage
 
-As pipelines Azure DevOps executam o `terraform plan` e `terraform apply` para provisionar os recursos nos respectivos ambientes e regiões.
+Azure DevOps pipelines execute `terraform plan` and `terraform apply` to provision the resources in the respective environments and regions.

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: web-backend
-          image: meu-registry.azurecr.io/web-backend:latest
+          image: my-registry.azurecr.io/web-backend:latest
           ports:
             - containerPort: 8000
           envFrom:

@@ -1,2 +1,2 @@
-# Observabilidade - Azure Monitor
-Alertas, Log Analytics e diagnósticos focados na infraestrutura provida pelo time de plataforma.
+# Observability - Azure Monitor
+Alerts, Log Analytics, and diagnostics focused on the infrastructure provided by the platform team.

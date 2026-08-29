@@ -1,13 +1,13 @@
 # Web Frontend
 
-Aplicação SPA (Single Page Application) simples utilizando Vanilla JS, HTML e CSS focado em performance e simplicidade de implantação.
+Simple SPA (Single Page Application) using Vanilla JS, HTML, and CSS focused on performance and deployment simplicity.
 
-Serve como interface para os usuários interagirem com os Eventos.
+It serves as the interface for users to interact with Events.
 
 ## Deploy
-Esta aplicação é containerizada utilizando `nginx:alpine` e distribuída pelo cluster.
+This application is containerized using `nginx:alpine` and distributed across the cluster.
 
-Em um ambiente Kubernetes com ArgoCD, o Ingress Controller (ou o próprio nginx.conf) ficaria responsável por rotear chamadas de `/api` para o pod do `web-backend`, evitando problemas de CORS e mantendo a arquitetura limpa.
+In a Kubernetes environment with ArgoCD, the Ingress Controller (or `nginx.conf` itself) would be responsible for routing calls from `/api` to the `web-backend` pod, avoiding CORS issues and keeping the architecture clean.
 
 ## Docker
 ```bash

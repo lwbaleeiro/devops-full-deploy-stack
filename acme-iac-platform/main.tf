@@ -24,13 +24,13 @@ provider "azurerm" {
   metadata_host = "localhost:4577"
 }
 
-# 1. Grupo de Recursos
+# 1. Resource Group
 resource "azurerm_resource_group" "rg" {
   name     = "rg-acme-events-uat"
   location = "eastus"
 }
 
-# 2. Key Vault (onde os segredos serão guardados para o External Secrets ler depois)
+# 2. Key Vault (where secrets will be stored for External Secrets to read later)
 resource "azurerm_key_vault" "kv" {
   name                     = "kv-uat-us-001"
   location                 = azurerm_resource_group.rg.location
@@ -40,7 +40,7 @@ resource "azurerm_key_vault" "kv" {
   purge_protection_enabled = false
 }
 
-# 3. Cosmos DB (Simulando nosso banco de dados)
+# 3. Cosmos DB (Simulating our database)
 resource "azurerm_cosmosdb_account" "db" {
   name                = "cosmos-events-uat"
   location            = azurerm_resource_group.rg.location
@@ -58,10 +58,10 @@ resource "azurerm_cosmosdb_account" "db" {
   }
 }
 
-# 4. Criando um Secret de mentirinha no Key Vault com a connection string do Cosmos
+# 4. Creating a mock Secret in Key Vault with the Cosmos connection string
 resource "azurerm_key_vault_secret" "cosmos_secret" {
   name = "cosmos-connection-string"
-  # O floci simula a criação de chaves. Aqui estamos injetando uma URL fake
+  # floci simulates key creation. Here we are injecting a fake URL
   value        = "AccountEndpoint=http://localhost:4577;AccountKey=fake_key;"
   key_vault_id = azurerm_key_vault.kv.id
 }

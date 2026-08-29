@@ -1,2 +1,2 @@
-# Observabilidade - New Relic
-Configurações, Dashboards e alertas de APM focados nas aplicações de produto (ex: web-backend).
+# Observability - New Relic
+APM configurations, Dashboards, and alerts focused on product applications (e.g., web-backend).

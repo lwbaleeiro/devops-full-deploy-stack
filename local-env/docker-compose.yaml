@@ -17,7 +17,7 @@ services:
     volumes:
       - floci-data:/var/lib/floci/data
 
-  # Interface Web do Floci
+  # Floci Web Interface
   floci-ui:
     image: floci/floci-ui:latest
     container_name: floci-ui
