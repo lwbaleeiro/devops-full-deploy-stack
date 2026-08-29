@@ -22,7 +22,7 @@ Para fins de estudo e organização, este mono-repositório simula os seguintes 
 
 ### 2. Camada de Infraestrutura e Plataforma
 - **`acme-iac-platform/`**: Repositório Terraform. Provisiona todos os serviços em nuvem (CosmosDB, Redis, RabbitMQ, Storage e Key Vault). Onde rodam as pipelines de `plan` e `apply`.
-- **`acme-gitops-extensions/`**: Repositório de extensões do ArgoCD gerenciado por SRE. Contém os templates `ExternalSecret` separados por ambiente/região (ex: `envs/uat/us/templates/`).
+- **`acme-external-secrets/`**: Repositório de extensões do ArgoCD gerenciado por SRE. Contém os templates `ExternalSecret` separados por ambiente/região (ex: `envs/uat/us/templates/`).
 
 ### 3. Observabilidade
 - **`observability/new-relic/`**: Monitoramento da aplicação (APM, logs da app).
@@ -32,4 +32,4 @@ Para fins de estudo e organização, este mono-repositório simula os seguintes 
 - **`local-env/`**: Contém o `docker-compose.yaml` com o emulador **floci-az**, permitindo que você rode e teste toda essa arquitetura (Terraform, Key Vault, Cosmos DB, etc.) na sua máquina **sem custo algum**. Leia o README dessa pasta para saber como conectá-lo.
 
 ---
-**Dica Prática:** Explore as pastas `acme-workload-events/` e `acme-gitops-extensions/` para ver exemplos práticos de como o fluxo do External Secrets Operator (ESO) e do Deployment estão conectados!
+**Dica Prática:** Explore as pastas `acme-workload-events/` e `acme-external-secrets/` para ver exemplos práticos de como o fluxo do External Secrets Operator (ESO) e do Deployment estão conectados!
