@@ -1,3 +1,6 @@
+# ========================
+# Terraform
+# ========================
 # Local .terraform directories
 **/.terraform/*
 
@@ -9,15 +12,11 @@
 crash.log
 crash.*.log
 
-# Exclude all .tfvars files, which are likely to contain sensitive data, such as
-# password, private keys, and other secrets. These should not be part of version 
-# control as they are data points which are potentially sensitive and subject 
-# to change depending on the environment.
+# Exclude all .tfvars files
 *.tfvars
 *.tfvars.json
 
-# Ignore override files as they are usually used to override resources locally and so
-# are not checked in
+# Ignore override files
 override.tf
 override.tf.json
 *_override.tf
@@ -30,5 +29,62 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+# ========================
+# Security / Keys
+# ========================
 # Ignore sensitive keys and certificates
 *.pem
+*.key
+*.cert
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# ========================
+# Python / Backend
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+ENV/
+
+# ========================
+# Node / Frontend
+# ========================
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# ========================
+# OS / IDEs
+# ========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
