@@ -31,6 +31,16 @@ curl -s -X PUT -H "Content-Type: application/json" \
   "$FLOCI_URL/secrets/cosmos-connection-string?api-version=7.3"
 
 echo ""
+echo "Creating Mock Secret for RabbitMQ in Key Vault..."
+RABBITMQ_CONN_STRING="amqp://admin:admin@rabbitmq-local:5672"
+
+curl -s -X PUT -H "Content-Type: application/json" \
+  -H "Host: $KEY_VAULT_NAME.vault.azure.net" \
+  -H "Authorization: Bearer dummy" \
+  -d "{\"value\":\"$RABBITMQ_CONN_STRING\"}" \
+  "$FLOCI_URL/secrets/rabbitmq-connection-string?api-version=7.3"
+
+echo ""
 STORAGE_ACCOUNT_NAME="devstoreaccount1"
 echo "Creating Storage Account: $STORAGE_ACCOUNT_NAME..."
 curl -s -X PUT -H "Content-Type: application/json" \

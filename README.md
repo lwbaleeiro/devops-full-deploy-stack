@@ -2,6 +2,15 @@
 
 This project simulates an enterprise cloud architecture with separation of duties between Platform, Operations/GitOps, and Product teams.
 
+## Prerequisites
+
+To run this stack locally, ensure you have the following installed on your machine:
+- **Docker & Docker Compose**: Required to run the local emulators (`floci-az`, `cosmos-emulator`, `rabbitmq`).
+- **Kubernetes (Minikube or Kind)**: A local Kubernetes cluster to deploy the application and tools like ArgoCD and New Relic.
+- **kubectl**: CLI to interact with your local Kubernetes cluster.
+- **Helm**: Required for installing New Relic and other charts.
+- **Python 3**: To run the backend application (`web-backend` using FastAPI).
+
 ## Architecture Diagram
 
 The main workflow for resource provisioning and secret management works as follows:
@@ -25,10 +34,9 @@ For study and organization purposes, this mono-repo simulates the following real
 
 ### 3. Observability
 - **`observability/new-relic/`**: Application monitoring (APM, app logs).
-- **`observability/azure-monitor/`**: Cloud infrastructure and data monitoring.
 
 ### 4. Local Simulation
-- **`local-env/`**: Contains the `docker-compose.yaml` with the **floci-az** and **Azure Cosmos DB** emulators, allowing you to run and test this entire architecture on your machine **at no cost**. Read the README in this folder to learn how to connect to it.
+- **`acme-infra/`**: Contains the `docker-compose.yaml` with the **floci-az** and **Azure Cosmos DB** emulators, allowing you to run and test this entire architecture on your machine **at no cost**. Read the README in this folder to learn how to connect to it.
 
 ---
 **Practical Tip:** Explore the `acme-workload-events/` and `acme-external-secrets/` folders to see practical examples of how the External Secrets Operator (ESO) workflow and Deployment are connected!

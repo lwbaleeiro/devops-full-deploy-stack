@@ -43,6 +43,19 @@ services:
     volumes:
       - cosmos-data:/data
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-local
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
 volumes:
   floci-data:
   cosmos-data:
+  rabbitmq-data:
