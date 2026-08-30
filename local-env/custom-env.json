@@ -1,0 +1,10 @@
+{
+  "name": "floci-az",
+  "managementEndpoint": "http://localhost:4577/",
+  "resourceManagerEndpoint": "http://localhost:4577/",
+  "activeDirectoryEndpoint": "http://localhost:4577/",
+  "galleryEndpoint": "http://localhost:4577/",
+  "keyVaultEndpoint": "http://localhost:4577/",
+  "keyVaultDnsSuffix": "localhost:4577",
+  "storageEndpointSuffix": "localhost:4577"
+}

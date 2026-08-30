@@ -6,7 +6,7 @@ This project simulates an enterprise cloud architecture with separation of dutie
 
 The main workflow for resource provisioning and secret management works as follows:
 
-1. **IaC Platform**: Provisions Azure resources (databases, cache, etc.) and saves credentials in the environment's Key Vault.
+1. **Infrastructure Setup**: Bash scripts provision Azure resources (databases, Key Vaults) in local emulators (`floci-az` and Cosmos DB emulator).
 2. **acme-external-secrets**: Hosts `ExternalSecret` templates. ArgoCD synchronizes these templates in the K8s cluster.
 3. **ESO (External Secrets Operator)**: Reads the Key Vault using the instructions from the `ExternalSecret` and generates a native Secret in the cluster.
 4. **Workload (Application)**: The application is deployed by ArgoCD and simply consumes the native Secret injected as environment variables.
@@ -21,7 +21,6 @@ For study and organization purposes, this mono-repo simulates the following real
 - **`acme-workload-events/`**: GitOps repository of the product team. Contains Kubernetes manifests (Deployment, HPA) for the application. ArgoCD monitors this folder.
 
 ### 2. Infrastructure and Platform Layer
-- **`acme-iac-platform/`**: Terraform repository. Provisions all cloud services (CosmosDB, Redis, RabbitMQ, Storage, and Key Vault). This is where the `plan` and `apply` pipelines run.
 - **`acme-external-secrets/`**: ArgoCD extensions repository managed by SRE. Contains `ExternalSecret` templates separated by environment/region (e.g.: `envs/uat/us/templates/`).
 
 ### 3. Observability
@@ -29,7 +28,7 @@ For study and organization purposes, this mono-repo simulates the following real
 - **`observability/azure-monitor/`**: Cloud infrastructure and data monitoring.
 
 ### 4. Local Simulation
-- **`local-env/`**: Contains the `docker-compose.yaml` with the **floci-az** emulator, allowing you to run and test this entire architecture (Terraform, Key Vault, Cosmos DB, etc.) on your machine **at no cost**. Read the README in this folder to learn how to connect to it.
+- **`local-env/`**: Contains the `docker-compose.yaml` with the **floci-az** and **Azure Cosmos DB** emulators, allowing you to run and test this entire architecture on your machine **at no cost**. Read the README in this folder to learn how to connect to it.
 
 ---
 **Practical Tip:** Explore the `acme-workload-events/` and `acme-external-secrets/` folders to see practical examples of how the External Secrets Operator (ESO) workflow and Deployment are connected!
