@@ -127,6 +127,34 @@ def backup_to_blob_storage(event: Event):
         logger.error(f"Falha ao salvar backup no Storage: {e}")
 
 
+def cleanup_blob_storage(event_id: str):
+    """Deleta os arquivos de backup e imagens associadas ao evento no Blob Storage"""
+    if not blob_service_client:
+        return
+    try:
+        container_client = blob_service_client.get_container_client(BLOB_CONTAINER_NAME)
+        
+        # Deleta o JSON de backup
+        try:
+            container_client.delete_blob(f"event-{event_id}.json")
+            logger.info(f"Backup do evento {event_id} deletado do Storage.")
+        except Exception:
+            pass # Ignora se não existir
+            
+        # Deleta a imagem (listando pelo prefixo)
+        try:
+            prefix = f"images/{event_id}-"
+            blobs = container_client.list_blobs(name_starts_with=prefix)
+            for blob in blobs:
+                container_client.delete_blob(blob.name)
+                logger.info(f"Imagem {blob.name} deletada do Storage.")
+        except Exception:
+            pass
+            
+    except Exception as e:
+        logger.error(f"Erro ao deletar arquivos do evento no Storage: {e}")
+
+
 @app.get("/api/events", response_model=List[Event])
 def list_events(search: Optional[str] = None):
     if not cosmos_container:
@@ -223,8 +251,9 @@ def delete_event(event_id: str, background_tasks: BackgroundTasks):
     try:
         cosmos_container.delete_item(item=event_id, partition_key=event_id)
         
-        # Notifica a fila
+        # Notifica a fila e limpa os arquivos do storage
         background_tasks.add_task(publish_to_rabbitmq, {"action": "deleted", "event_id": event_id})
+        background_tasks.add_task(cleanup_blob_storage, event_id)
         return {"message": "Event deleted successfully"}
     except exceptions.CosmosResourceNotFoundError:
         raise HTTPException(status_code=404, detail="Event not found")
