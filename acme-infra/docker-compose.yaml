@@ -59,6 +59,7 @@ services:
     build:
       context: ../web-backend
     container_name: web-backend
+    restart: on-failure
     ports:
       - "8000:8000"
     environment:
@@ -75,6 +76,7 @@ services:
     build:
       context: ../web-frontend
     container_name: web-frontend
+    restart: on-failure
     ports:
       - "8080:80"
     depends_on:
@@ -84,6 +86,7 @@ services:
     build:
       context: ../worker-events
     container_name: worker-events
+    restart: on-failure
     environment:
       - RABBITMQ_CONNECTION_STRING=amqp://admin:admin@rabbitmq:5672/
     depends_on:
