@@ -11,18 +11,22 @@ document.addEventListener('DOMContentLoaded', () => {
     eventForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const newEvent = {
-            title: document.getElementById('title').value,
-            date: document.getElementById('date').value,
-            location: document.getElementById('location').value,
-            description: document.getElementById('description').value
-        };
+        const formData = new FormData();
+        formData.append('title', document.getElementById('title').value);
+        formData.append('date', document.getElementById('date').value);
+        formData.append('location', document.getElementById('location').value);
+        formData.append('description', document.getElementById('description').value);
+        
+        const imageFile = document.getElementById('image').files[0];
+        if (imageFile) {
+            formData.append('image', imageFile);
+        }
 
         try {
             const response = await fetch(API_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newEvent)
+                // Nao setar Content-Type para FormData, o browser seta automaticamente com o boundary correto
+                body: formData
             });
             if(response.ok) {
                 eventForm.reset();
@@ -30,8 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Error creating event:', error);
-            // Fallback for local development without backend
-            renderEvent({...newEvent, id: Date.now().toString()});
         }
     });
 
@@ -53,7 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderEvent(event) {
         const div = document.createElement('div');
         div.className = 'event-card';
+        
+        let imageHtml = '';
+        if (event.image_url) {
+            imageHtml = `<img src="${event.image_url}" alt="${event.title}" style="max-width: 100%; border-radius: 8px; margin-bottom: 10px;">`;
+        }
+
         div.innerHTML = `
+            ${imageHtml}
             <h3>${event.title}</h3>
             <p class="date">📅 ${new Date(event.date).toLocaleDateString()}</p>
             <p class="location">📍 ${event.location}</p>

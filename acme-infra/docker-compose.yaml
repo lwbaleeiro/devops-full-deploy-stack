@@ -55,6 +55,40 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 
+  web-backend:
+    build:
+      context: ../web-backend
+    container_name: web-backend
+    ports:
+      - "8000:8000"
+    environment:
+      # Utiliza os nomes dos containers (resolução de DNS interna do Docker)
+      - COSMOS_ENDPOINT=https://cosmos-emulator:8081
+      - STORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://floci-az:4577/devstoreaccount1;
+      - RABBITMQ_CONNECTION_STRING=amqp://admin:admin@rabbitmq:5672/
+    depends_on:
+      - cosmos-emulator
+      - rabbitmq
+      - floci-az
+
+  web-frontend:
+    build:
+      context: ../web-frontend
+    container_name: web-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - web-backend
+
+  worker-events:
+    build:
+      context: ../worker-events
+    container_name: worker-events
+    environment:
+      - RABBITMQ_CONNECTION_STRING=amqp://admin:admin@rabbitmq:5672/
+    depends_on:
+      - rabbitmq
+
 volumes:
   floci-data:
   cosmos-data:

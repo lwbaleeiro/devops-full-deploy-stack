@@ -4,8 +4,8 @@ FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/
 COPY src/ /usr/share/nginx/html/src/
 
-# In a DevOps practice, we would use an nginx.conf template
-# to proxy_pass /api calls to the Kubernetes backend service.
+# Configura o proxy_pass para o backend
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
